@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Quick sort in 4 minutes - YouTube (Abdelaziz Masmoudi UNV)
+Exec=/opt/brave.com/brave/brave-browser "--profile-directory=Profile 4" --ignore-profile-directory-if-not-exists "https://www.youtube.com/watch?v=Hoixgm4-P4M"
+Icon=/home/abdelaziz/.config/BraveSoftware/Brave-Browser/Profile 4/Web Shortcut Icons/shortcut-4dcf890063c101ae0e33c33c02914377.png
+URL=https://www.youtube.com/watch?v=Hoixgm4-P4M
+Comment=Open https://www.youtube.com/watch?v=Hoixgm4-P4M in a new tab in Brave.

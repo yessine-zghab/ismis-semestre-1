@@ -1,0 +1,1186 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+
+    <meta name="description"
+        content="L1 Multimédia ISIMS Student Hub — Ressources, matières, crédits et plan d'étude.">
+
+    <meta name="author"
+        content="Yessine Zghab">
+
+    <title>
+        L1 Multimédia ISIMS — Student Hub v2
+    </title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css?v=4">
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+
+    <div class="nav">
+
+        <!-- BRAND -->
+
+        <a class="brand"
+           href="#"
+           onclick="showPage('home'); return false;">
+
+            <div class="logo">
+
+                <img
+                    src="LOGO.jpg"
+                    alt="Yessine Zghab Logo"
+                    onerror="this.style.display='none'; this.parentElement.textContent='🎓';">
+
+            </div>
+
+
+            <div class="brand-name">
+
+                <strong>
+                    Multimédia ISIMS
+                </strong>
+
+                <span>
+                    Student Hub · S1
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- NAVIGATION -->
+
+        <div class="navlinks">
+
+            <button
+                onclick="showPage('home')"
+                id="nav-home">
+
+                🏠 Accueil
+
+            </button>
+
+
+            <button
+                onclick="showPage('subjects')"
+                id="nav-subjects">
+
+                📚 Matières
+
+            </button>
+
+
+            <button
+                onclick="showPage('planning')"
+                id="nav-planning">
+
+                📊 Plan d'étude
+
+            </button>
+
+
+            <button
+                onclick="showPage('revisions')"
+                id="nav-revisions">
+
+                🗓️ Révisions DS
+
+            </button>
+
+        </div>
+
+
+        <!-- DARK MODE TOGGLE -->
+
+        <button
+            class="theme-toggle"
+            id="theme-toggle"
+            onclick="toggleTheme()"
+            aria-label="Basculer le mode sombre"
+            title="Mode sombre / clair">
+
+            🌙
+
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main>
+
+
+<!-- =====================================================
+     HOME
+===================================================== -->
+
+<section id="home">
+
+
+    <!-- HERO -->
+
+    <div class="hero">
+
+        <div class="hero-content">
+
+
+            <div class="hero-label">
+
+                🎓 ISIMS · Licence 1
+
+            </div>
+
+
+            <h1>
+
+                L1 Multimédia
+                <br>
+
+                <span>
+                    Student Hub
+                </span>
+
+            </h1>
+
+
+            <p>
+
+                Un espace étudiant personnel pour centraliser
+                les matières, les crédits, le volume horaire
+                et les ressources du semestre.
+
+            </p>
+
+
+            <div class="badges">
+
+                <span class="badge">
+                    2026–2027
+                </span>
+
+                <span class="badge">
+                    Semestre 1
+                </span>
+
+                <span class="badge">
+                    30 crédits
+                </span>
+
+                <span class="badge">
+                    ISIMS · Sfax
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         STATISTICS
+    ================================================= -->
+
+    <div class="stats">
+
+
+        <div class="card">
+
+            <div class="stat-icon">
+                🎓
+            </div>
+
+            <span class="muted">
+                Semestre
+            </span>
+
+            <strong>
+                S1
+            </strong>
+
+        </div>
+
+
+
+        <div class="card">
+
+            <div class="stat-icon">
+                ⭐
+            </div>
+
+            <span class="muted">
+                Crédits
+            </span>
+
+            <strong>
+                30
+            </strong>
+
+        </div>
+
+
+
+        <div class="card">
+
+            <div class="stat-icon">
+                📚
+            </div>
+
+            <span class="muted">
+                Matières
+            </span>
+
+            <strong>
+                10
+            </strong>
+
+        </div>
+
+
+
+        <div class="card">
+
+            <div class="stat-icon">
+                📅
+            </div>
+
+            <span class="muted">
+                Durée
+            </span>
+
+            <strong>
+                14 sem.
+            </strong>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         QUICK ACCESS
+    ================================================= -->
+
+    <div class="section-title">
+
+        <div>
+
+            <h2>
+                Accès rapide
+            </h2>
+
+            <span class="muted">
+                Tout ce qu'il faut pour le S1
+            </span>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="grid">
+
+
+        <!-- MATIERES -->
+
+        <div
+            class="card subject"
+            onclick="showPage('subjects')">
+
+            <div class="subject-icon">
+                📚
+            </div>
+
+            <h3>
+                Matières
+            </h3>
+
+            <p class="muted">
+
+                Cours, TD, TP, DS,
+                examens et corrections.
+
+            </p>
+
+        </div>
+
+
+
+        <!-- PLAN -->
+
+        <div
+            class="card subject"
+            onclick="showPage('planning')">
+
+            <div class="subject-icon">
+                📊
+            </div>
+
+            <h3>
+                Plan d'étude
+            </h3>
+
+            <p class="muted">
+
+                UE, crédits, coefficients
+                et volumes horaires.
+
+            </p>
+
+        </div>
+
+
+
+        <!-- REVISION -->
+
+        <div
+            class="card subject"
+            onclick="showPage('subjects')">
+
+            <div class="subject-icon">
+                🚀
+            </div>
+
+            <h3>
+                Révision
+            </h3>
+
+            <p class="muted">
+
+                Retrouve rapidement les
+                ressources nécessaires pour
+                préparer tes contrôles et examens.
+
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     SUBJECTS
+===================================================== -->
+
+<section
+    id="subjects"
+    style="display:none">
+
+
+    <!-- TITLE -->
+
+    <div class="section-title">
+
+        <div>
+
+            <h2>
+                Matières — Semestre 1
+            </h2>
+
+            <span class="muted">
+
+                Structure basée sur le plan
+                d'étude fourni.
+
+            </span>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- SEARCH -->
+
+    <div class="toolbar">
+
+        <input
+            id="search"
+            type="text"
+            placeholder="🔎 Rechercher une matière ou un chapitre (ex: Chapitre 3, DS, Polynômes...)"
+            oninput="renderSubjects()">
+
+    </div>
+
+
+
+    <!-- SUBJECTS -->
+
+    <div id="subjectList">
+
+        <!--
+            Les matières seront générées
+            automatiquement par script.js
+        -->
+
+    </div>
+
+
+    <!-- CHAPTER / FILE SEARCH RESULTS -->
+
+    <div id="chapterResults" style="margin-top:10px;">
+
+        <!--
+            Résultats de recherche par chapitre / fichier,
+            générés automatiquement par script.js
+        -->
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     STUDY PLAN
+===================================================== -->
+
+<section
+    id="planning"
+    style="display:none">
+
+
+    <!-- TITLE -->
+
+    <div class="section-title">
+
+        <div>
+
+            <h2>
+                Plan d'étude
+            </h2>
+
+            <span class="muted">
+
+                Licence — 2026–2027
+
+            </span>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         UE FONDAMENTALES
+    ================================================= -->
+
+    <div class="card">
+
+        <div
+            style="
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
+                gap:10px;
+                margin-bottom:18px;
+            ">
+
+            <div>
+
+                <h3 style="margin:0 0 5px;">
+
+                    UE Fondamentales
+
+                </h3>
+
+                <span class="muted">
+
+                    Modules fondamentaux du semestre
+
+                </span>
+
+            </div>
+
+
+            <span class="pill">
+
+                24 crédits
+
+            </span>
+
+        </div>
+
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Module / Matière
+                        </th>
+
+                        <th>
+                            H.C
+                        </th>
+
+                        <th>
+                            H.TD
+                        </th>
+
+                        <th>
+                            H.TP
+                        </th>
+
+                        <th>
+                            H.CI
+                        </th>
+
+                        <th>
+                            Coef.
+                        </th>
+
+                        <th>
+                            Crédits
+                        </th>
+
+                        <th>
+                            Régime
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="fundTable">
+
+                    <!--
+                        Généré par script.js
+                    -->
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         UE TRANSVERSALES
+    ================================================= -->
+
+    <div
+        class="card"
+        style="margin-top:18px">
+
+
+        <div
+            style="
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
+                gap:10px;
+                margin-bottom:18px;
+            ">
+
+            <div>
+
+                <h3 style="margin:0 0 5px;">
+
+                    UE Transversales
+
+                </h3>
+
+                <span class="muted">
+
+                    Communication, méthodologie
+                    et développement web
+
+                </span>
+
+            </div>
+
+
+            <span class="pill">
+
+                6 crédits
+
+            </span>
+
+        </div>
+
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Module / Matière
+                        </th>
+
+                        <th>
+                            H.C
+                        </th>
+
+                        <th>
+                            H.TD
+                        </th>
+
+                        <th>
+                            H.TP
+                        </th>
+
+                        <th>
+                            H.CI
+                        </th>
+
+                        <th>
+                            Coef.
+                        </th>
+
+                        <th>
+                            Crédits
+                        </th>
+
+                        <th>
+                            Régime
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="transTable">
+
+                    <!--
+                        Généré par script.js
+                    -->
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         SEMESTER SUMMARY
+    ================================================= -->
+
+    <div
+        class="card"
+        style="margin-top:18px">
+
+
+        <h3>
+            Résumé du semestre
+        </h3>
+
+
+        <div class="kv">
+
+
+            <div>
+
+                <span>
+                    Semestre
+                </span>
+
+                <strong>
+                    S1
+                </strong>
+
+            </div>
+
+
+
+            <div>
+
+                <span>
+                    Crédits
+                </span>
+
+                <strong>
+                    30
+                </strong>
+
+            </div>
+
+
+
+            <div>
+
+                <span>
+                    UE
+                </span>
+
+                <strong>
+                    Fondamentales + Transversales
+                </strong>
+
+            </div>
+
+
+
+            <div>
+
+                <span>
+                    Année
+                </span>
+
+                <strong>
+                    2026–2027
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     REVISIONS / DS SCHEDULE
+===================================================== -->
+
+<section
+    id="revisions"
+    style="display:none">
+
+
+    <!-- TITLE -->
+
+    <div class="section-title">
+
+        <div>
+
+            <h2>
+                Révisions — Sessions de DS
+            </h2>
+
+            <span class="muted">
+
+                Deux sessions de contrôle continu
+                pendant le semestre
+
+            </span>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- COUNTDOWN CARDS -->
+
+    <div class="ds-sessions" id="dsSessions">
+
+        <!--
+            Généré par script.js
+            (countdown en direct : jours / heures / min / sec)
+        -->
+
+    </div>
+
+
+
+    <!-- MATIERES CONCERNEES -->
+
+    <div
+        class="card"
+        style="margin-top:18px">
+
+        <h3 style="margin-top:0;">
+
+            Matières avec ressources DS
+
+        </h3>
+
+        <span class="muted">
+
+            Clique sur une matière pour ouvrir
+            directement ses sujets de DS.
+
+        </span>
+
+
+        <div
+            id="dsSubjectList"
+            style="margin-top:16px;">
+
+            <!--
+                Généré par script.js
+            -->
+
+        </div>
+
+    </div>
+
+
+</section>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+
+    <div class="footer-box">
+
+
+        <!-- LEFT -->
+
+        <div class="footer-left">
+
+            <div class="footer-title">
+
+                Multimédia ISIMS — Student Hub
+
+            </div>
+
+
+            <div class="footer-sub">
+
+                L1 · Semestre 1 · 2026–2027
+
+            </div>
+
+
+            <div class="footer-sub">
+
+                Student project — ISIMS Sfax
+
+            </div>
+
+
+            <div class="footer-sub">
+
+                © 2026 All rights reserved.
+
+            </div>
+
+        </div>
+
+
+
+        <!-- SIGNATURE -->
+
+        <div class="signature">
+
+            <span class="signature-label">
+
+                Designed & developed by
+
+            </span>
+
+
+            <span class="signature-name">
+
+                Yessine Zghab
+
+            </span>
+
+
+            <div class="signature-line"></div>
+
+        </div>
+
+
+    </div>
+
+
+</footer>
+
+
+
+<!-- =====================================================
+     MODAL
+===================================================== -->
+
+<div
+    class="modal"
+    id="modal">
+
+
+    <div class="modal-box">
+
+
+        <button
+            class="close"
+            onclick="closeModal()"
+            aria-label="Fermer">
+
+            ✕
+
+        </button>
+
+
+        <div id="modalContent">
+
+            <!--
+                Contenu généré automatiquement
+                par script.js
+            -->
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script src="subjects.js?v=4"></script>
+
+<script src="script.js?v=4"></script>
+
+
+
+<!-- =====================================================
+     FALLBACK / BASIC NAVIGATION
+===================================================== -->
+
+<script>
+
+function showPage(page){
+
+    const pages = [
+        "home",
+        "subjects",
+        "planning",
+        "revisions"
+    ];
+
+    pages.forEach(function(id){
+
+        const section =
+            document.getElementById(id);
+
+        if(section){
+
+            section.style.display =
+                id === page ? "block" : "none";
+
+        }
+
+    });
+
+
+    const navButtons = [
+        "nav-home",
+        "nav-subjects",
+        "nav-planning",
+        "nav-revisions"
+    ];
+
+
+    navButtons.forEach(function(id){
+
+        const button =
+            document.getElementById(id);
+
+        if(button){
+
+            button.classList.remove("active");
+
+        }
+
+    });
+
+
+    const activeButton =
+        document.getElementById(
+            "nav-" + page
+        );
+
+
+    if(activeButton){
+
+        activeButton.classList.add("active");
+
+    }
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+
+    /*
+      Si script.js contient une fonction
+      renderSubjects(), on la relance.
+    */
+
+    if(page === "subjects"
+       && typeof renderSubjects === "function"){
+
+        renderSubjects();
+
+    }
+
+
+    /*
+      Si script.js contient une fonction
+      renderPlanning(), on la relance.
+    */
+
+    if(page === "planning"
+       && typeof renderPlanning === "function"){
+
+        renderPlanning();
+
+    }
+
+
+    /*
+      Si script.js contient une fonction
+      renderRevisions(), on la relance.
+    */
+
+    if(page === "revisions"
+       && typeof renderRevisions === "function"){
+
+        renderRevisions();
+
+    }
+
+}
+
+
+/* Fermer le modal en cliquant
+   en dehors de la fenêtre */
+
+document.addEventListener(
+    "click",
+    function(event){
+
+        const modal =
+            document.getElementById("modal");
+
+        if(
+            modal &&
+            event.target === modal
+        ){
+
+            closeModal();
+
+        }
+
+    }
+);
+
+
+/* ESC = fermer modal */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Escape"){
+
+            if(
+                typeof closeModal === "function"
+            ){
+
+                closeModal();
+
+            }
+
+        }
+
+    }
+);
+
+
+/* Page d'accueil par défaut */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        if(typeof initTheme === "function"){
+            initTheme();
+        }
+
+        showPage("home");
+        renderSubjects();
+        renderPlanning();
+
+        if(typeof renderRevisions === "function"){
+            renderRevisions();
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

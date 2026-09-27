@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Comment montrer que deux s.e.v. sont égaux en utilisant la dimension ? - YouTube (Abdelaziz Masmoudi UNV)
+Exec=/opt/brave.com/brave/brave-browser "--profile-directory=Profile 4" --ignore-profile-directory-if-not-exists "https://www.youtube.com/watch?v=ZIBYVg-vLBU"
+Icon=/home/abdelaziz/.config/BraveSoftware/Brave-Browser/Profile 4/Web Shortcut Icons/shortcut-ad77361d6b329ffbbad996593d2fe346.png
+URL=https://www.youtube.com/watch?v=ZIBYVg-vLBU
+Comment=Open https://www.youtube.com/watch?v=ZIBYVg-vLBU in a new tab in Brave.

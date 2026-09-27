@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Comment montrer un sous-espace vectoriel ? Remarques et exemples - YouTube (Abdelaziz Masmoudi UNV)
+Exec=/opt/brave.com/brave/brave-browser "--profile-directory=Profile 4" --ignore-profile-directory-if-not-exists "https://www.youtube.com/watch?v=lVIA_hnXxlM"
+Icon=/home/abdelaziz/.config/BraveSoftware/Brave-Browser/Profile 4/Web Shortcut Icons/shortcut-6ce857bf1436a7d7865939949529f0ea.png
+URL=https://www.youtube.com/watch?v=lVIA_hnXxlM
+Comment=Open https://www.youtube.com/watch?v=lVIA_hnXxlM in a new tab in Brave.

@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Calculus 1 - Integration & Antiderivatives - YouTube (Abdelaziz Masmoudi UNV)
+Exec=/opt/brave.com/brave/brave-browser "--profile-directory=Profile 4" --ignore-profile-directory-if-not-exists "https://www.youtube.com/watch?v=6WUjbJEeJwM"
+Icon=/home/abdelaziz/.config/BraveSoftware/Brave-Browser/Profile 4/Web Shortcut Icons/shortcut-29ae77599b6fc6d9cf3552528af3a3cb.png
+URL=https://www.youtube.com/watch?v=6WUjbJEeJwM
+Comment=Open https://www.youtube.com/watch?v=6WUjbJEeJwM in a new tab in Brave.
