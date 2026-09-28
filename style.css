@@ -173,16 +173,6 @@ header{
   transform:translateY(-1px);
 }
 
-.logo{
-  width:46px;
-  height:46px;
-  border-radius:14px;
-  background:linear-gradient(135deg,var(--primary),var(--primary2));
-  display:grid;
-  place-items:center;
-  overflow:hidden;
-  box-shadow:0 8px 22px rgba(79,70,229,.25);
-}
 
 .brand .logo img{
   width:100%;
