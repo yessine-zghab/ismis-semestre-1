@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css?v=4">
-<link rel="stylesheet" href="timer.css?v=3">
+<link rel="stylesheet" href="timer.css?v=5">
 </head>
 <body>
 
@@ -142,22 +142,23 @@
     <div class="tm-view" id="tmSetup">
       <h3 class="tm-q" id="tmQ">How long do you want to study?</h3>
       <div class="tm-inputs">
-        <label><input id="tmH" type="number" inputmode="numeric" min="0" max="12" value="0" aria-label="Hours"><span>hour</span></label>
-        <label><input id="tmM" type="number" inputmode="numeric" min="0" max="59" value="25" aria-label="Minutes"><span>min</span></label>
-        <label><input id="tmS" type="number" inputmode="numeric" min="0" max="59" value="0" aria-label="Seconds (optional)"><span>sec <em>(optional)</em></span></label>
+        <label><input id="tmH" type="number" inputmode="numeric" min="0" max="99" value="0" aria-label="Hours"><span>hour</span></label>
+        <label><input id="tmM" type="number" inputmode="numeric" min="0" value="25" aria-label="Minutes"><span>min</span></label>
+        <label><input id="tmS" type="number" inputmode="numeric" min="0" value="00" aria-label="Seconds (optional)"><span>sec <em>(optional)</em></span></label>
       </div>
       <p class="tm-preview" id="tmPreview"></p>
       <p class="tm-error" id="tmError" role="alert"></p>
       <button class="tm-start" id="tmStart">Start Focus</button>
 
       <div class="tm-today">
-        <h4>Today</h4>
+        <div class="tm-today-head"><h4>Today</h4><button class="tm-link" id="tmClear" type="button">Reset today</button></div>
         <div class="tm-stats">
           <div><strong id="stSessions">0</strong><span>Sessions</span></div>
           <div><strong id="stTime">0m</strong><span>Focused time</span></div>
           <div><strong id="stCurrent">#1</strong><span>Current session</span></div>
         </div>
       </div>
+      <button class="tm-link tm-bored" id="tmPlay" type="button">🎮 Feeling bored? Play a quick game</button>
     </div>
 
     <!-- ACTIVE -->
@@ -176,13 +177,30 @@
     </div>
 
     <!-- COMPLETE -->
-    <div class="tm-view" id="tmDone" hidden>
+    <div class="tm-view" id="tmDone" hidden aria-live="polite">
       <div class="tm-done-icon">🎉</div>
       <h3 class="tm-done-title" id="tmDoneTitle">Focus Session Complete!</h3>
       <div class="tm-stats" id="tmDoneStats"></div>
       <div class="tm-controls">
         <button class="tm-start" id="tmAgain">Start Another Session</button>
         <button class="tm-btn" id="tmBreak">☕ Take a Break</button>
+        <button class="tm-link tm-bored" id="tmPlay2" type="button">🎮 Play a quick game</button>
+      </div>
+    </div>
+
+    <!-- GAME: memory match (only from setup / completion, never during a focus session) -->
+    <div class="tm-view" id="tmGame" hidden>
+      <h3 class="tm-q">🧠 Memory Match</h3>
+      <div class="tm-gstats">
+        <span>Moves: <b id="gMoves">0</b></span>
+        <span>Time: <b id="gTime">0s</b></span>
+        <span>Best: <b id="gBest">—</b></span>
+      </div>
+      <div class="mem-grid" id="memGrid"></div>
+      <p class="tm-gmsg" id="gMsg">Find all 8 pairs. Quick break, then back to studying 💪</p>
+      <div class="tm-controls">
+        <button class="tm-btn" id="gNew">🎮 New Game</button>
+        <button class="tm-btn" id="gBack">← Back to Study</button>
       </div>
     </div>
 
@@ -219,7 +237,7 @@
 <!-- JAVASCRIPT -->
 <script src="subjects.js?v=4"></script>
 <script src="script.js?v=4"></script>
-<script src="timer.js?v=3"></script>
+<script src="timer.js?v=5"></script>
 
 <script>
 function showPage(page){
