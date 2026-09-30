@@ -10,8 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css?v=4">
-<link rel="stylesheet" href="timer.css?v=5">
-<link rel="stylesheet" href="calendar.css?v=1">
+<link rel="stylesheet" href="timer.css?v=3">
 </head>
 <body>
 
@@ -27,7 +26,6 @@
     <button onclick="showPage('subjects')" id="nav-subjects">📚 Matières</button>
     <button onclick="showPage('planning')" id="nav-planning">📊 Plan d'étude</button>
     <button onclick="showPage('revisions')" id="nav-revisions">🗓️ Révisions DS</button>
-    <button onclick="showPage('calendar')" id="nav-calendar">📅 Calendrier</button>
     <button onclick="showPage('timer')" id="nav-timer">⏱️ Study With Me</button>
   </div>
   <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Basculer le mode sombre" title="Mode sombre / clair">🌙</button>
@@ -54,8 +52,6 @@
     <div class="card"><div class="stat-icon">📚</div><span class="muted">Matières</span><strong>10</strong></div>
     <div class="card"><div class="stat-icon">📅</div><span class="muted">Durée</span><strong>14 sem.</strong></div>
   </div>
-
-  <div class="card cal-next" id="homeNextDs" hidden></div>
 
   <div class="section-title"><div><h2>Accès rapide</h2><span class="muted">Tout ce qu'il faut pour le S1</span></div></div>
 
@@ -133,53 +129,6 @@
   </div>
 </section>
 
-<!-- CALENDRIER -->
-<section id="calendar" style="display:none">
-  <div class="cal-head">
-    <div><h2>📅 Calendrier</h2><p>Plan your week. Never miss a DS.</p></div>
-    <div class="cal-nav">
-      <button class="cal-ibtn" id="calPrev" aria-label="Previous week">‹</button>
-      <div class="cal-week" id="calWeek"></div>
-      <button class="cal-ibtn" id="calNext" aria-label="Next week">›</button>
-      <button class="cal-ibtn" id="calToday">Today</button>
-      <button class="cal-ibtn cal-primary" id="calAddTop">+ Add</button>
-    </div>
-  </div>
-
-  <div class="cal-top">
-    <div class="card">
-      <h4>This week</h4>
-      <div class="cal-bar"><i id="calBar"></i></div>
-      <p class="cal-ptext" id="calProg"></p>
-    </div>
-    <div class="card">
-      <h4><span>Upcoming DS</span><button class="cal-small" id="calAddDs">+ Add DS</button></h4>
-      <div class="cal-ds-list" id="calDs"></div>
-    </div>
-  </div>
-
-  <div class="cal-grid" id="calGrid"></div>
-
-  <div class="cal-modal" id="calModal" role="dialog" aria-modal="true" aria-labelledby="calModalTitle">
-    <div class="cal-box">
-      <h3 id="calModalTitle">Add to calendar</h3>
-      <div class="cal-seg" id="calSeg"><button type="button" data-t="task" class="on">📖 Study task</button><button type="button" data-t="ds">📝 DS</button></div>
-      <div class="cal-f"><label for="calSubject">Subject</label><select id="calSubject"></select></div>
-      <div class="cal-f"><label for="calTitle" id="calTitleL">What are you studying?</label><input id="calTitle" type="text" maxlength="80"></div>
-      <div class="cal-row">
-        <div class="cal-f"><label for="calDate">Date</label><input id="calDate" type="date"></div>
-        <div class="cal-f"><label for="calTime">Time (optional)</label><input id="calTime" type="time"></div>
-      </div>
-      <div class="cal-f" id="calDurRow"><label for="calDur">Duration (minutes, optional)</label><input id="calDur" type="number" min="0" max="720" placeholder="45"></div>
-      <div class="cal-actions">
-        <button class="cal-ibtn cal-danger" id="calDel" type="button">Delete</button>
-        <button class="cal-ibtn" id="calCancel" type="button">Cancel</button>
-        <button class="cal-ibtn cal-primary" id="calSave" type="button">Save</button>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- STUDY WITH ME -->
 <section id="timer" style="display:none">
   <div class="tm-head">
@@ -193,23 +142,22 @@
     <div class="tm-view" id="tmSetup">
       <h3 class="tm-q" id="tmQ">How long do you want to study?</h3>
       <div class="tm-inputs">
-        <label><input id="tmH" type="number" inputmode="numeric" min="0" max="99" value="0" aria-label="Hours"><span>hour</span></label>
-        <label><input id="tmM" type="number" inputmode="numeric" min="0" value="25" aria-label="Minutes"><span>min</span></label>
-        <label><input id="tmS" type="number" inputmode="numeric" min="0" value="00" aria-label="Seconds (optional)"><span>sec <em>(optional)</em></span></label>
+        <label><input id="tmH" type="number" inputmode="numeric" min="0" max="12" value="0" aria-label="Hours"><span>hour</span></label>
+        <label><input id="tmM" type="number" inputmode="numeric" min="0" max="59" value="25" aria-label="Minutes"><span>min</span></label>
+        <label><input id="tmS" type="number" inputmode="numeric" min="0" max="59" value="0" aria-label="Seconds (optional)"><span>sec <em>(optional)</em></span></label>
       </div>
       <p class="tm-preview" id="tmPreview"></p>
       <p class="tm-error" id="tmError" role="alert"></p>
       <button class="tm-start" id="tmStart">Start Focus</button>
 
       <div class="tm-today">
-        <div class="tm-today-head"><h4>Today</h4><button class="tm-link" id="tmClear" type="button">Reset today</button></div>
+        <h4>Today</h4>
         <div class="tm-stats">
           <div><strong id="stSessions">0</strong><span>Sessions</span></div>
           <div><strong id="stTime">0m</strong><span>Focused time</span></div>
           <div><strong id="stCurrent">#1</strong><span>Current session</span></div>
         </div>
       </div>
-      <button class="tm-link tm-bored" id="tmPlay" type="button">🎮 Feeling bored? Play a quick game</button>
     </div>
 
     <!-- ACTIVE -->
@@ -228,30 +176,13 @@
     </div>
 
     <!-- COMPLETE -->
-    <div class="tm-view" id="tmDone" hidden aria-live="polite">
+    <div class="tm-view" id="tmDone" hidden>
       <div class="tm-done-icon">🎉</div>
       <h3 class="tm-done-title" id="tmDoneTitle">Focus Session Complete!</h3>
       <div class="tm-stats" id="tmDoneStats"></div>
       <div class="tm-controls">
         <button class="tm-start" id="tmAgain">Start Another Session</button>
         <button class="tm-btn" id="tmBreak">☕ Take a Break</button>
-        <button class="tm-link tm-bored" id="tmPlay2" type="button">🎮 Play a quick game</button>
-      </div>
-    </div>
-
-    <!-- GAME: memory match (only from setup / completion, never during a focus session) -->
-    <div class="tm-view" id="tmGame" hidden>
-      <h3 class="tm-q">🧠 Memory Match</h3>
-      <div class="tm-gstats">
-        <span>Moves: <b id="gMoves">0</b></span>
-        <span>Time: <b id="gTime">0s</b></span>
-        <span>Best: <b id="gBest">—</b></span>
-      </div>
-      <div class="mem-grid" id="memGrid"></div>
-      <p class="tm-gmsg" id="gMsg">Find all 8 pairs. Quick break, then back to studying 💪</p>
-      <div class="tm-controls">
-        <button class="tm-btn" id="gNew">🎮 New Game</button>
-        <button class="tm-btn" id="gBack">← Back to Study</button>
       </div>
     </div>
 
@@ -288,16 +219,15 @@
 <!-- JAVASCRIPT -->
 <script src="subjects.js?v=4"></script>
 <script src="script.js?v=4"></script>
-<script src="timer.js?v=5"></script>
-<script src="calendar.js?v=1"></script>
+<script src="timer.js?v=3"></script>
 
 <script>
 function showPage(page){
-  ["home","subjects","planning","revisions","calendar","timer"].forEach(function(id){
+  ["home","subjects","planning","revisions","timer"].forEach(function(id){
     var s = document.getElementById(id);
     if(s) s.style.display = id === page ? "block" : "none";
   });
-  ["nav-home","nav-subjects","nav-planning","nav-revisions","nav-calendar","nav-timer"].forEach(function(id){
+  ["nav-home","nav-subjects","nav-planning","nav-revisions","nav-timer"].forEach(function(id){
     var b = document.getElementById(id);
     if(b) b.classList.remove("active");
   });
@@ -307,7 +237,6 @@ function showPage(page){
   if(page === "subjects"  && typeof renderSubjects  === "function") renderSubjects();
   if(page === "planning"  && typeof renderPlanning  === "function") renderPlanning();
   if(page === "revisions" && typeof renderRevisions === "function") renderRevisions();
-  if(page === "calendar"  && typeof renderCalendar  === "function") renderCalendar();
 }
 
 document.addEventListener("click", function(e){

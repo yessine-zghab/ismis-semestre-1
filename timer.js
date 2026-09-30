@@ -19,20 +19,6 @@
   function saveStats() { try { localStorage.setItem(KEY, JSON.stringify(T)); } catch (e) {} }
   let T = loadStats();
 
-  /* ---------- active-session persistence (survives a page refresh) ---------- */
-  const AKEY = "isims_study_active";
-  function saveActive() {
-    try { localStorage.setItem(AKEY, JSON.stringify({ kind: S.kind, total: S.total, remaining: S.remaining, running: S.running, end: S.end })); } catch (e) {}
-  }
-  function clearActive() { try { localStorage.removeItem(AKEY); } catch (e) {} }
-
-  /* ---------- screen wake lock (no permission prompt; ignored if unsupported) ---------- */
-  let wl = null;
-  async function lock() { try { if ("wakeLock" in navigator) wl = await navigator.wakeLock.request("screen"); } catch (e) {} }
-  function unlock() { try { if (wl) wl.release(); } catch (e) {} wl = null; }
-
-  function navDot(on) { const b = $("nav-timer"); if (b) b.classList.toggle("tm-live", on); }
-
   /* ---------- formatting ---------- */
   const pad = (n) => String(n).padStart(2, "0");
   function clock(s) {
@@ -57,13 +43,11 @@
   /* ---------- views ---------- */
   function show(v) {
     S.view = v;
-    ["Setup", "Active", "Done", "Game"].forEach((n) => { $("tm" + n).hidden = n.toLowerCase() !== v; });
+    ["Setup", "Active", "Done"].forEach((n) => { $("tm" + n).hidden = n.toLowerCase() !== v; });
     $("timer").classList.toggle("is-active", v === "active");
     $("tmCard").classList.toggle("finished", v === "done");
     if (v !== "active") $("tmCard").classList.remove("paused");
     if (v === "setup") { refreshStats(); validate(); }
-    const f = { active: "tmPause", done: "tmAgain" }[v];
-    if (f && $("timer").style.display !== "none") $(f).focus({ preventScroll: true });
   }
 
   function refreshStats() {
@@ -76,17 +60,8 @@
   }
 
   /* ---------- input ---------- */
-  const num = (id) => Math.max(0, parseInt($(id).value, 10) || 0);
-  const chosen = () => num("tmH") * 3600 + num("tmM") * 60 + num("tmS");
-
-  // e.g. 75 min -> 1 h 15 min, so the fields always match what will run
-  function normalize() {
-    const t = chosen();
-    $("tmH").value = Math.floor(t / 3600);
-    $("tmM").value = pad(Math.floor((t % 3600) / 60));
-    $("tmS").value = pad(t % 60);
-    validate();
-  }
+  const num = (id, max) => Math.min(max, Math.max(0, parseInt($(id).value, 10) || 0));
+  const chosen = () => num("tmH", 12) * 3600 + num("tmM", 59) * 60 + num("tmS", 59);
 
   function validate() {
     const t = chosen();
@@ -100,9 +75,8 @@
   }
   ["tmH", "tmM", "tmS"].forEach((id) => {
     $(id).addEventListener("input", validate);
-    $(id).addEventListener("change", normalize);
     $(id).addEventListener("focus", (e) => e.target.select());
-    $(id).addEventListener("keydown", (e) => { if (e.key === "Enter") { normalize(); start(); } });
+    $(id).addEventListener("keydown", (e) => { if (e.key === "Enter") start(); });
   });
 
   /* ---------- timer ---------- */
@@ -132,18 +106,17 @@
     $("tmCard").classList.remove("paused");
     clearInterval(S.qiv);
     S.qiv = setInterval(() => setQuote(false), 45000);
-    lock(); navDot(true); saveActive();
     render();
   }
 
-  function halt() { clearInterval(S.iv); clearInterval(S.qiv); S.running = false; unlock(); navDot(false); }
+  function halt() { clearInterval(S.iv); clearInterval(S.qiv); S.running = false; }
 
   function pause() {
     tick(); if (S.view !== "active") return;
     halt();
     $("tmPause").textContent = "▶ Resume";
     $("tmCard").classList.add("paused");
-    saveActive(); render();
+    render();
   }
 
   function toggle() { if (S.view !== "active") return; S.running ? pause() : run(); }
@@ -160,18 +133,18 @@
     S.remaining = S.total;
     $("tmPause").textContent = "▶ Resume";
     $("tmCard").classList.add("paused");
-    saveActive(); render();
+    render();
   }
 
   function exit() {
     if (S.view !== "active") return;
-    halt(); clearActive();
+    halt();
     if (S.kind === "break") { S.kind = "focus"; $("tmH").value = 0; $("tmM").value = 25; $("tmS").value = 0; }
     show("setup"); render();
   }
 
   function finish() {
-    halt(); clearActive(); beep(); flashTitle();
+    halt(); beep();
     if (S.kind === "focus") {
       T.sessions++; T.seconds += S.total; saveStats();
       $("tmDoneTitle").textContent = "Focus Session Complete!";
@@ -212,29 +185,6 @@
     } catch (e) {}
   }
 
-  let flashIv = null;
-  function flashTitle() {
-    clearInterval(flashIv);
-    if (!document.hidden) return;
-    let on = false;
-    flashIv = setInterval(() => {
-      if (!document.hidden) { clearInterval(flashIv); render(); return; }
-      document.title = (on = !on) ? "⏰ Time's up!" : "✅ Done — Study With Me";
-    }, 900);
-  }
-
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden || !S.running) return;
-    lock(); tick();               // re-acquire wake lock, catch up instantly
-  });
-
-  window.addEventListener("beforeunload", (e) => { if (S.running) { e.preventDefault(); e.returnValue = ""; } });
-
-  $("tmClear").onclick = () => {
-    if (!T.sessions && !T.seconds) return;
-    if (confirm("Reset today's sessions and focused time?")) { T = { date: today(), sessions: 0, seconds: 0 }; saveStats(); refreshStats(); }
-  };
-
   /* ---------- buttons ---------- */
   $("tmStart").onclick = start;
   $("tmPause").onclick = toggle;
@@ -247,68 +197,8 @@
     show("setup"); render();
   };
 
-  /* ---------- memory match (simple break game) ---------- */
-  const EMO = ["🎓", "📚", "✏️", "💻", "🧠", "🔬", "🎧", "☕"];
-  const GKEY = "isims_memory_best";
-  const G = { first: null, lock: false, moves: 0, matched: 0, t0: 0, iv: null, from: "setup" };
-  const gBest = () => { try { return parseInt(localStorage.getItem(GKEY), 10) || null; } catch (e) { return null; } };
-
-  function openGame(from) { G.from = from; show("game"); newGame(); }
-  function closeGame() { clearInterval(G.iv); show(G.from); render(); }
-
-  function newGame() {
-    clearInterval(G.iv);
-    Object.assign(G, { first: null, lock: false, moves: 0, matched: 0, t0: 0 });
-    const deck = EMO.concat(EMO).sort(() => Math.random() - 0.5);
-    const grid = $("memGrid"); grid.innerHTML = "";
-    deck.forEach((e) => {
-      const b = document.createElement("button");
-      b.className = "mem-card"; b.type = "button"; b.setAttribute("aria-label", "Hidden card");
-      b.innerHTML = "<span>" + e + "</span>"; b.dataset.e = e;
-      b.onclick = () => flip(b);
-      grid.appendChild(b);
-    });
-    $("gMoves").textContent = 0; $("gTime").textContent = "0s";
-    $("gBest").textContent = gBest() ? gBest() + " moves" : "—";
-    $("gMsg").textContent = "Find all 8 pairs. Quick break, then back to studying 💪";
-  }
-
-  function flip(b) {
-    if (G.lock || b.classList.contains("open") || b.classList.contains("done")) return;
-    if (!G.t0) { G.t0 = Date.now(); G.iv = setInterval(() => { $("gTime").textContent = Math.floor((Date.now() - G.t0) / 1000) + "s"; }, 500); }
-    b.classList.add("open"); b.setAttribute("aria-label", b.dataset.e);
-    if (!G.first) { G.first = b; return; }
-    G.moves++; $("gMoves").textContent = G.moves;
-    const a = G.first; G.first = null;
-    if (a.dataset.e === b.dataset.e) {
-      a.classList.replace("open", "done"); b.classList.replace("open", "done");
-      if (++G.matched === EMO.length) win();
-    } else {
-      G.lock = true;
-      setTimeout(() => {
-        [a, b].forEach((x) => { x.classList.remove("open"); x.setAttribute("aria-label", "Hidden card"); });
-        G.lock = false;
-      }, 700);
-    }
-  }
-
-  function win() {
-    clearInterval(G.iv);
-    const sec = Math.floor((Date.now() - G.t0) / 1000), best = gBest();
-    let msg = "🎉 Done in " + G.moves + " moves (" + sec + "s). Ready to focus again?";
-    if (!best || G.moves < best) { try { localStorage.setItem(GKEY, G.moves); } catch (e) {} msg = "🏆 New best: " + G.moves + " moves! Ready to focus again?"; }
-    $("gMsg").textContent = msg;
-    $("gBest").textContent = Math.min(best || 999, G.moves) + " moves";
-  }
-
-  $("tmPlay").onclick = () => openGame("setup");
-  $("tmPlay2").onclick = () => openGame("done");
-  $("gNew").onclick = newGame;
-  $("gBack").onclick = () => { closeGame(); if (G.from === "done") { S.kind = "focus"; show("setup"); render(); } };
-
   /* ---------- keyboard ---------- */
   document.addEventListener("keydown", (e) => {
-    if (S.view === "game" && e.key === "Escape" && $("timer").style.display !== "none") { $("gBack").click(); return; }
     if (S.view !== "active" || $("timer").style.display === "none") return;
     const tag = (e.target.tagName || "").toLowerCase();
     if (tag === "input" || tag === "textarea" || tag === "select" || e.target.isContentEditable) return;
@@ -318,19 +208,5 @@
     else if (e.key === "Escape") exit();
   });
 
-  // restore an unfinished session after a refresh
-  (function restore() {
-    try {
-      const a = JSON.parse(localStorage.getItem(AKEY));
-      if (!a || !a.total) return;
-      S.kind = a.kind; S.total = a.total;
-      S.remaining = a.running ? Math.max(0, Math.ceil((a.end - Date.now()) / 1000)) : a.remaining;
-      $("tmKicker").textContent = S.kind === "focus" ? "Focus Session #" + (T.sessions + 1) : "Break Time ☕";
-      $("tmSub").textContent = label(S.total);
-      show("active"); setQuote(true);
-      if (a.running) { S.end = a.end; a.end <= Date.now() ? finish() : run(); }
-      else { $("tmPause").textContent = "▶ Resume"; $("tmCard").classList.add("paused"); render(); }
-    } catch (e) { clearActive(); }
-  })();
-  if (S.view === "setup") { normalize(); show("setup"); render(); }
+  show("setup"); render();
 })();

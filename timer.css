@@ -75,34 +75,3 @@
   .tm-controls .tm-btn{flex:1;min-width:0;padding:14px 8px}
 }
 @media(prefers-reduced-motion:reduce){.tm-time,.tm-view,.tm-done-icon{animation:none}}
-
-/* polish */
-.tm-card button:focus-visible,.tm-card input:focus-visible{outline:2px solid var(--primary);outline-offset:3px}
-.tm-today-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.tm-today-head h4{margin:0}
-.tm-link{border:0;background:none;color:var(--muted);font:inherit;font-size:12px;font-weight:650;cursor:pointer;
-  text-decoration:underline;text-underline-offset:3px;padding:2px 4px;transition:color .2s}
-.tm-link:hover{color:var(--c-ds)}
-.tm-inputs input:focus{border-color:var(--primary)}
-.tm-start:active,.tm-btn:active{transform:scale(.98)}
-/* live indicator on the nav button while a session runs */
-.navlinks button.tm-live::after{content:"";display:inline-block;width:7px;height:7px;margin-left:7px;border-radius:50%;
-  background:var(--success);vertical-align:middle;animation:tmBreath 2s ease-in-out infinite}
-
-/* memory game */
-.tm-bored{display:block;margin:22px auto 0;font-size:13px;text-decoration:none;color:var(--primary)}
-.tm-bored:hover{color:var(--primary);text-decoration:underline}
-#tmDone .tm-bored{margin-top:6px}
-.tm-gstats{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;color:var(--muted);font-weight:650;font-size:14px;margin:-6px 0 16px}
-.tm-gstats b{color:var(--text);font-variant-numeric:tabular-nums}
-.mem-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-width:380px;margin:0 auto}
-.mem-card{aspect-ratio:1;border:1px solid var(--border);border-radius:14px;background:var(--surface-2);cursor:pointer;
-  font-size:clamp(24px,7vw,34px);display:grid;place-items:center;padding:0;transition:transform .2s,background-color .2s,border-color .2s}
-.mem-card::before{content:"?";color:var(--muted);font-weight:800;font-size:20px}
-.mem-card span{display:none}
-.mem-card:hover:not(.open):not(.done){border-color:var(--primary);transform:translateY(-2px)}
-.mem-card.open,.mem-card.done{background:var(--card);border-color:var(--primary);cursor:default}
-.mem-card.open::before,.mem-card.done::before{content:none}
-.mem-card.open span,.mem-card.done span{display:block;animation:tmPop .25s ease}
-.mem-card.done{border-color:var(--success);opacity:.75}
-.tm-gmsg{min-height:22px;margin:16px 0 18px;color:var(--muted);font-weight:650}
