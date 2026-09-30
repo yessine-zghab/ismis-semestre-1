@@ -11,6 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css?v=4">
 <link rel="stylesheet" href="timer.css?v=5">
+<link rel="stylesheet" href="calendar.css?v=1">
 </head>
 <body>
 
@@ -26,6 +27,7 @@
     <button onclick="showPage('subjects')" id="nav-subjects">📚 Matières</button>
     <button onclick="showPage('planning')" id="nav-planning">📊 Plan d'étude</button>
     <button onclick="showPage('revisions')" id="nav-revisions">🗓️ Révisions DS</button>
+    <button onclick="showPage('calendar')" id="nav-calendar">📅 Calendrier</button>
     <button onclick="showPage('timer')" id="nav-timer">⏱️ Study With Me</button>
   </div>
   <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Basculer le mode sombre" title="Mode sombre / clair">🌙</button>
@@ -52,6 +54,8 @@
     <div class="card"><div class="stat-icon">📚</div><span class="muted">Matières</span><strong>10</strong></div>
     <div class="card"><div class="stat-icon">📅</div><span class="muted">Durée</span><strong>14 sem.</strong></div>
   </div>
+
+  <div class="card cal-next" id="homeNextDs" hidden></div>
 
   <div class="section-title"><div><h2>Accès rapide</h2><span class="muted">Tout ce qu'il faut pour le S1</span></div></div>
 
@@ -126,6 +130,53 @@
     <h3 style="margin-top:0;">Matières avec ressources DS</h3>
     <span class="muted">Clique sur une matière pour ouvrir directement ses sujets de DS.</span>
     <div id="dsSubjectList" style="margin-top:16px;"></div>
+  </div>
+</section>
+
+<!-- CALENDRIER -->
+<section id="calendar" style="display:none">
+  <div class="cal-head">
+    <div><h2>📅 Calendrier</h2><p>Plan your week. Never miss a DS.</p></div>
+    <div class="cal-nav">
+      <button class="cal-ibtn" id="calPrev" aria-label="Previous week">‹</button>
+      <div class="cal-week" id="calWeek"></div>
+      <button class="cal-ibtn" id="calNext" aria-label="Next week">›</button>
+      <button class="cal-ibtn" id="calToday">Today</button>
+      <button class="cal-ibtn cal-primary" id="calAddTop">+ Add</button>
+    </div>
+  </div>
+
+  <div class="cal-top">
+    <div class="card">
+      <h4>This week</h4>
+      <div class="cal-bar"><i id="calBar"></i></div>
+      <p class="cal-ptext" id="calProg"></p>
+    </div>
+    <div class="card">
+      <h4><span>Upcoming DS</span><button class="cal-small" id="calAddDs">+ Add DS</button></h4>
+      <div class="cal-ds-list" id="calDs"></div>
+    </div>
+  </div>
+
+  <div class="cal-grid" id="calGrid"></div>
+
+  <div class="cal-modal" id="calModal" role="dialog" aria-modal="true" aria-labelledby="calModalTitle">
+    <div class="cal-box">
+      <h3 id="calModalTitle">Add to calendar</h3>
+      <div class="cal-seg" id="calSeg"><button type="button" data-t="task" class="on">📖 Study task</button><button type="button" data-t="ds">📝 DS</button></div>
+      <div class="cal-f"><label for="calSubject">Subject</label><select id="calSubject"></select></div>
+      <div class="cal-f"><label for="calTitle" id="calTitleL">What are you studying?</label><input id="calTitle" type="text" maxlength="80"></div>
+      <div class="cal-row">
+        <div class="cal-f"><label for="calDate">Date</label><input id="calDate" type="date"></div>
+        <div class="cal-f"><label for="calTime">Time (optional)</label><input id="calTime" type="time"></div>
+      </div>
+      <div class="cal-f" id="calDurRow"><label for="calDur">Duration (minutes, optional)</label><input id="calDur" type="number" min="0" max="720" placeholder="45"></div>
+      <div class="cal-actions">
+        <button class="cal-ibtn cal-danger" id="calDel" type="button">Delete</button>
+        <button class="cal-ibtn" id="calCancel" type="button">Cancel</button>
+        <button class="cal-ibtn cal-primary" id="calSave" type="button">Save</button>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -238,14 +289,15 @@
 <script src="subjects.js?v=4"></script>
 <script src="script.js?v=4"></script>
 <script src="timer.js?v=5"></script>
+<script src="calendar.js?v=1"></script>
 
 <script>
 function showPage(page){
-  ["home","subjects","planning","revisions","timer"].forEach(function(id){
+  ["home","subjects","planning","revisions","calendar","timer"].forEach(function(id){
     var s = document.getElementById(id);
     if(s) s.style.display = id === page ? "block" : "none";
   });
-  ["nav-home","nav-subjects","nav-planning","nav-revisions","nav-timer"].forEach(function(id){
+  ["nav-home","nav-subjects","nav-planning","nav-revisions","nav-calendar","nav-timer"].forEach(function(id){
     var b = document.getElementById(id);
     if(b) b.classList.remove("active");
   });
@@ -255,6 +307,7 @@ function showPage(page){
   if(page === "subjects"  && typeof renderSubjects  === "function") renderSubjects();
   if(page === "planning"  && typeof renderPlanning  === "function") renderPlanning();
   if(page === "revisions" && typeof renderRevisions === "function") renderRevisions();
+  if(page === "calendar"  && typeof renderCalendar  === "function") renderCalendar();
 }
 
 document.addEventListener("click", function(e){
