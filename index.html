@@ -26,7 +26,7 @@
     <button onclick="showPage('home')" id="nav-home">🏠 Accueil</button>
     <button onclick="showPage('subjects')" id="nav-subjects">📚 Matières</button>
     <button onclick="showPage('planning')" id="nav-planning">📊 Plan d'étude</button>
-    <button onclick="showPage('revisions')" id="nav-revisions">🗓️ Révisions DS</button>
+    <button onclick="showPage('revisions')" id="nav-revisions">🗓️ Countdown DS</button>
     <button onclick="showPage('calendar')" id="nav-calendar">📅 Calendrier</button>
     <button onclick="showPage('timer')" id="nav-timer">⏱️ Study With Me</button>
   </div>
@@ -68,11 +68,19 @@
       <div class="subject-icon">📊</div><h3>Plan d'étude</h3>
       <p class="muted">UE, crédits, coefficients et volumes horaires.</p>
     </div>
+    <div class="card subject" onclick="showPage('revisions')">
+      <div class="subject-icon">🗓️</div><h3>Révisions DS</h3>
+      <p class="muted">Sujets de DS et corrections, matière par matière.</p>
+    </div>
+    <div class="card subject" onclick="showPage('calendar')">
+      <div class="subject-icon">📅</div><h3>Calendrier</h3>
+      <p class="muted">Planifie ta semaine et ne rate aucun DS.</p>
+    </div>
     <div class="card subject" onclick="showPage('timer')">
       <div class="subject-icon">⏱️</div><h3>Study With Me</h3>
       <p class="muted">Minuteur de concentration et pauses pour rester productif.</p>
     </div>
-  </div>
+</div>
 </section>
 
 <!-- SUBJECTS -->
