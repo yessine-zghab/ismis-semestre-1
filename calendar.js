@@ -3,7 +3,7 @@
   const $ = (id) => document.getElementById(id);
   if (!$("calGrid")) return;
 
-  const KEY = "isims_calendar_v1";
+  const KEY = "isims_calendar";
   const SUBJECTS = [
     ["Algèbre", "#6366f1"],
     ["Analyse", "#0ea5e9"],
@@ -16,7 +16,11 @@
     ["Communication Skills en français", "#f97316"],
     ["Introduction au développement Web", "#06b6d4"]
   ];
-  const colorOf = (s) => (SUBJECTS.find((x) => x[0] === s) || [0, "#6366f1"])[1];
+  const colorOf = (s) => {
+  const subject = SUBJECTS.find((x) => x[0] === s);
+  return subject ? subject[1] : "#6366f1";
+};
+
 
   const pad = (n) => String(n).padStart(2, "0");
   const ymd = (d) => d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
@@ -50,6 +54,7 @@
     const we = addDays(weekStart, 6);
     $("calWeek").textContent = fmt(weekStart, { day: "numeric", month: "short" }) + " – " + fmt(we, { day: "numeric", month: "short", year: "numeric" });
 
+    // week grid
     let html = "";
     for (let i = 0; i < 7; i++) {
       const d = addDays(weekStart, i), key = ymd(d);
@@ -61,25 +66,28 @@
     }
     $("calGrid").innerHTML = html;
 
+    // weekly progress
     const wk = items.filter((x) => x.type === "task" && x.date >= ymd(weekStart) && x.date <= ymd(we));
     const done = wk.filter((x) => x.done).length;
     $("calBar").style.width = wk.length ? (done / wk.length * 100) + "%" : "0%";
     $("calProg").textContent = wk.length ? done + "/" + wk.length + " tasks done this week" : "No tasks planned this week yet.";
 
+    // upcoming DS
     const next = items.filter((x) => x.type === "ds" && x.date >= today).sort((a, b) => a.date.localeCompare(b.date) || byTime(a, b));
     $("calDs").innerHTML = next.length
       ? next.slice(0, 3).map((x) => '<div class="cal-ds-chip" data-edit="' + x.id + '"><div><b>DS ' + esc(dsTitle(x)) + "</b><small>" +
-          fmt(parse(x.date), { weekday: "short", day: "numeric", month: "short" }) + (x.time ? " · " + esc(x.time) : "") +
+          fmt(parse(x.date), { weekday: "short", day: "numeric", month: "short" }) + (x.time ? " · " + x.time : "") +
           "</small></div><em>" + rel(x.date) + "</em></div>").join("")
       : '<p class="cal-empty">No DS planned. Add your next one with “+ Add DS”.</p>';
 
+    // home banner
     const hb = $("homeNextDs");
     if (hb) {
       if (next.length) {
         const n = next[0];
         hb.hidden = false;
         hb.innerHTML = '<div style="font-size:26px">📝</div><div><strong>Next DS: ' + esc(dsTitle(n)) + " — " + rel(n.date) + "</strong><span>" +
-          fmt(parse(n.date), { weekday: "long", day: "numeric", month: "long" }) + (n.time ? " · " + esc(n.time) : "") + " · Open the calendar</span></div>";
+          fmt(parse(n.date), { weekday: "long", day: "numeric", month: "long" }) + (n.time ? " · " + n.time : "") + " · Open the calendar</span></div>";
       } else hb.hidden = true;
     }
   }
@@ -88,10 +96,10 @@
     const isDs = it.type === "ds";
     const meta = [it.time, !isDs && it.dur ? it.dur + " min" : ""].filter(Boolean).join(" · ");
     const go = !isDs && it.dur ? '<button class="cal-go" data-go="' + it.id + '" title="Start a focus session" aria-label="Start focus session">▶</button>' : "";
-    return '<div class="cal-item' + (isDs ? " ds" : "") + (it.done ? " done" : "") + '" style="--sc:' + (isDs ? "var(--c-ds,#ef4444)" : colorOf(it.subject)) + '">' +
+    return '<div class="cal-item' + (isDs ? " ds" : "") + (it.done ? " done" : "") + '" style="--sc:var(' + (isDs ? "--c-ds" : colorOf(it.subject)) + ')">' +
       '<div class="cal-r1">' + (isDs ? "" : '<input type="checkbox" data-done="' + it.id + '"' + (it.done ? " checked" : "") + ' aria-label="Mark done">') +
       '<span class="cal-sub">' + esc(it.subject) + "</span></div>" +
-      '<div class="cal-body" data-edit="' + it.id + '"><span class="cal-t">' + esc(isDs ? dsTitle(it) : (it.title || "")) + "</span></div>" +
+      '<div class="cal-body" data-edit="' + it.id + '"><span class="cal-t">' + esc(isDs ? dsTitle(it) : (it.title || "Study")) + "</span></div>" +
       (meta || go ? '<div class="cal-r3"><span class="cal-m">' + esc(meta) + "</span>" + go + "</div>" : "") + "</div>";
   }
 
@@ -127,17 +135,19 @@
     if (!date) { $("calDate").focus(); return; }
     const o = { type: mType, subject: $("calSubject").value, title: $("calTitle").value.trim(), date, time: $("calTime").value,
                 dur: mType === "task" ? Math.min(720, Math.max(0, parseInt($("calDur").value, 10) || 0)) : 0 };
-    if (editId) { const it = items.find((x) => x.id === editId); if (it) Object.assign(it, o); }
+    if (editId) { const it = items.find((x) => x.id === editId); Object.assign(it, o); }
     else items.push(Object.assign({ id: Date.now() + Math.floor(Math.random() * 1000), done: false }, o));
     save(); closeDialog();
-    weekStart = monday(parse(date));
+    weekStart = monday(parse(date));   // jump to the week that contains the new entry
     render();
   }
 
   /* ---------- actions ---------- */
   function study(it) {
-    if (!it) return;
-    if (typeof window.setStudyDuration === "function") window.setStudyDuration(it.dur || 25);
+    const m = it.dur || 25;
+    const set = (id, v) => { const e = $(id); if (e) e.value = v; };
+    set("tmH", Math.floor(m / 60)); set("tmM", pad(m % 60)); set("tmS", "00");
+    const tm = $("tmM"); if (tm) tm.dispatchEvent(new Event("change"));
     if (typeof showPage === "function") showPage("timer");
   }
 
@@ -150,8 +160,7 @@
   });
   $("calGrid").addEventListener("change", (e) => {
     const c = e.target.closest("[data-done]"); if (!c) return;
-    const it = items.find((x) => x.id === +c.dataset.done);
-    if (it) { it.done = c.checked; save(); render(); }
+    const it = items.find((x) => x.id === +c.dataset.done); it.done = c.checked; save(); render();
   });
   $("calDs").addEventListener("click", (e) => { const ed = e.target.closest("[data-edit]"); if (ed) openDialog(null, null, +ed.dataset.edit); });
 
