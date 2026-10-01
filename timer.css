@@ -1,8 +1,7 @@
 /* =========================================================
    STUDY WITH ME — calm focus timer
 ========================================================= */
-.logo{width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,var(--primary),var(--primary2));
-  display:grid;place-items:center;overflow:hidden;box-shadow:0 8px 22px rgba(79,70,229,.25)}
+
 .logo img{width:100%;height:100%;object-fit:cover;display:block}
 
 .tm-head{text-align:center;margin:6px 0 24px}
@@ -28,7 +27,7 @@
 .tm-inputs span{font-size:12px;font-weight:750;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
 .tm-inputs em{text-transform:none;letter-spacing:0;font-style:normal;font-weight:600;opacity:.8}
 .tm-preview{margin:16px 0 4px;color:var(--muted);font-weight:650;min-height:22px}
-.tm-error{margin:0 0 8px;color:var(--c-ds);font-weight:700;font-size:14px;min-height:20px}
+.tm-error{margin:0 0 8px;color:var(--c-ds,#ef4444);font-weight:700;font-size:14px;min-height:20px}
 
 .tm-start{border:0;border-radius:16px;padding:16px 34px;background:var(--primary);color:#fff;font:inherit;
   font-size:18px;font-weight:800;cursor:pointer;transition:transform .15s,box-shadow .2s,opacity .2s;width:100%;max-width:340px}
@@ -37,10 +36,16 @@
 
 .tm-today{margin-top:30px;padding-top:22px;border-top:1px solid var(--border)}
 .tm-today h4{margin:0 0 12px;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.tm-today-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.tm-today-head h4{margin:0}
 .tm-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .tm-stats>div{background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:14px 6px}
 .tm-stats strong{display:block;font-size:22px;font-variant-numeric:tabular-nums}
 .tm-stats span{display:block;margin-top:3px;font-size:11px;color:var(--muted);font-weight:650}
+
+.tm-link{border:0;background:none;color:var(--primary);font:inherit;font-weight:700;cursor:pointer;padding:4px}
+.tm-link:hover{text-decoration:underline}
+.tm-bored{display:block;margin:22px auto 0;color:var(--muted)}
 
 /* active */
 .tm-kicker{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
@@ -68,10 +73,23 @@
 #tmDone .tm-start{max-width:340px}
 #tmDone .tm-btn{width:100%;max-width:340px;padding:14px}
 
+/* memory game */
+.tm-gstats{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;color:var(--muted);font-weight:650;margin-bottom:16px}
+.tm-gstats b{color:var(--text)}
+.mem-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-width:360px;margin:0 auto 16px}
+.mem-card{aspect-ratio:1;border:1px solid var(--border);border-radius:14px;background:var(--surface-2);color:var(--muted);
+  font-size:30px;font-weight:800;cursor:pointer;transition:transform .2s,background-color .2s,border-color .2s}
+.mem-card:hover{border-color:var(--primary)}
+.mem-card.open{background:var(--card);color:var(--text);transform:scale(1.04);border-color:var(--primary)}
+.mem-card.match{border-color:var(--success);background:var(--card);color:var(--text);cursor:default}
+.tm-gmsg{min-height:22px;margin:0 0 18px;color:var(--muted);font-weight:650}
+
 @media(max-width:620px){
   .tm-card{padding:28px 18px;border-radius:20px}
   .tm-inputs input{font-size:28px}
   .tm-stats strong{font-size:18px}
   .tm-controls .tm-btn{flex:1;min-width:0;padding:14px 8px}
+  .mem-grid{gap:8px}
+  .mem-card{font-size:24px}
 }
 @media(prefers-reduced-motion:reduce){.tm-time,.tm-view,.tm-done-icon{animation:none}}
