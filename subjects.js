@@ -407,7 +407,23 @@ const subjects = [
     "htp": "—",
     "hci": "1.5",
     "regime": "RM",
-    "resources": {}
+    "resources": {
+      "cours": [
+        
+      ],
+      "td": [
+      ],
+      "tp": [
+      ],
+      "ds": [
+      ],
+      "examens": [
+      ],
+      "corrections": [
+      ],
+      "autres": [
+      ]
+    }
   },
 
   {
@@ -420,7 +436,23 @@ const subjects = [
     "htp": "—",
     "hci": "1.5",
     "regime": "CC",
-    "resources": {}
+    "resources": {
+      "cours": [
+        // "Dossier/Cours/fichier.pdf",
+      ],
+      "td": [
+      ],
+      "tp": [
+      ],
+      "ds": [
+      ],
+      "examens": [
+      ],
+      "corrections": [
+      ],
+      "autres": [
+      ]
+    }
   },
 
   {
@@ -433,7 +465,23 @@ const subjects = [
     "htp": "—",
     "hci": "—",
     "regime": "CC",
-    "resources": {}
+    "resources": {
+      "cours": [
+        // "Dossier/Cours/fichier.pdf",
+      ],
+      "td": [
+      ],
+      "tp": [
+      ],
+      "ds": [
+      ],
+      "examens": [
+      ],
+      "corrections": [
+      ],
+      "autres": [
+      ]
+    }
   },
 
   {
@@ -446,6 +494,22 @@ const subjects = [
     "htp": "—",
     "hci": "2.25",
     "regime": "RM",
-    "resources": {}
+    "resources": {
+      "cours": [
+        // "Dossier/Cours/fichier.pdf",
+      ],
+      "td": [
+      ],
+      "tp": [
+      ],
+      "ds": [
+      ],
+      "examens": [
+      ],
+      "corrections": [
+      ],
+      "autres": [
+      ]
+    }
   }
 ];

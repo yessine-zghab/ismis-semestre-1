@@ -875,20 +875,32 @@ tbody tr td:first-child{
 footer{
   max-width:1200px;
   margin:auto;
-  padding:35px 20px 55px;
+  padding:35px 20px 45px;
   color:var(--muted);
 }
 
-.footer-box{
-  border-top:1px solid var(--border);
-  padding-top:25px;
-  display:flex;
-  align-items:flex-end;
-  justify-content:space-between;
-  gap:25px;
+.footer-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:22px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
 }
 
-.footer-left{
+.footer-accent{
+  height:4px;
+  background:linear-gradient(90deg,var(--primary),var(--primary2),var(--ue-trans));
+}
+
+.footer-main{
+  display:grid;
+  grid-template-columns:1.2fr auto 1fr;
+  align-items:center;
+  gap:30px;
+  padding:30px 34px;
+}
+
+.footer-brand{
   display:flex;
   flex-direction:column;
   gap:5px;
@@ -897,15 +909,69 @@ footer{
 .footer-title{
   color:var(--text);
   font-weight:800;
+  font-size:16px;
+  margin-bottom:2px;
 }
 
 .footer-sub{
-  font-size:12px;
+  font-size:13px;
+}
+
+.footer-connect{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+}
+
+.footer-label{
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.18em;
+  font-weight:700;
+  color:var(--muted);
+}
+
+.footer-social{
+  display:flex;
+  gap:10px;
+}
+
+.social-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 16px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background:var(--surface-2);
+  color:var(--text);
+  font-size:13px;
+  font-weight:700;
+  text-decoration:none;
+  transition:transform .2s ease, box-shadow .2s ease, color .2s ease, background .2s ease, border-color .2s ease;
+}
+
+.social-btn:hover{
+  transform:translateY(-3px);
+  color:#fff;
+  border-color:transparent;
+}
+
+.social-ig:hover{
+  background:linear-gradient(45deg,#f59e0b,#e11d48 50%,#7c3aed);
+  box-shadow:0 10px 24px rgba(225,29,72,.30);
+}
+
+.social-fb:hover{
+  background:#1877f2;
+  box-shadow:0 10px 24px rgba(24,119,242,.32);
 }
 
 .signature{
   text-align:right;
-  padding:10px 4px;
+  padding:6px 4px;
+  overflow:visible;
 }
 
 .signature-label{
@@ -920,15 +986,18 @@ footer{
 
 .signature-name{
   font-family:"Caveat","Segoe Script",cursive;
-  font-size:38px;
+  font-size:31px;
   font-weight:700;
-  line-height:1;
+  line-height:1.25;
+  padding:2px 14px 4px 6px;
+  margin-right:-8px;
   background:linear-gradient(135deg,var(--primary),var(--primary2));
   -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
   background-clip:text;
+  -webkit-text-fill-color:transparent;
   display:inline-block;
-  transform:rotate(-3deg);
+  transform:rotate(-2deg);
+  overflow:visible;
 }
 
 .signature-line{
@@ -939,6 +1008,14 @@ footer{
   margin-left:auto;
   margin-top:4px;
   opacity:.55;
+}
+
+.footer-bottom{
+  border-top:1px solid var(--border);
+  padding:14px 34px;
+  font-size:12px;
+  text-align:center;
+  background:var(--surface-2);
 }
 
 /* =========================
@@ -1077,9 +1154,19 @@ footer{
     font-size:23px;
   }
 
-  .footer-box{
-    flex-direction:column;
+  .footer-main{
+    grid-template-columns:1fr;
+    gap:22px;
+    padding:24px 20px;
+    text-align:left;
+  }
+
+  .footer-connect{
     align-items:flex-start;
+  }
+
+  .footer-bottom{
+    padding:14px 20px;
   }
 
   .signature{

@@ -728,19 +728,20 @@ function openSubject(index) {
 
     if (!hasResources) {
 
-        body += `
+        // No resources yet: show empty sections (no "Aucune ressource" message)
+        ["cours", "td", "ds", "corrections", "autres"].forEach(function(key) {
 
-            <div
-                class="empty"
-                style="margin-top:20px;"
-            >
+            const meta = CATEGORY_LABELS[key];
 
-                Aucune ressource n'a encore été
-                ajoutée pour cette matière.
+            body += `
+                <div class="resource-group" style="margin-top:22px;">
+                    <span class="cat-badge cat-${key}">
+                        ${meta.icon} ${meta.label} · 0
+                    </span>
+                </div>
+            `;
 
-            </div>
-
-        `;
+        });
 
     }
 
