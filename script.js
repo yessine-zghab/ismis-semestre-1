@@ -42,13 +42,13 @@ const CATEGORY_ORDER = [
    avec le planning officiel de l'ISIMS */
 
 const DS_SESSIONS = [
-    {
-        id: "ds1",
-        label: "Session DS 1",
-        period: "Début novembre 2026",
-        date: "2026-11-02",
-        icon: "🍂"
-    },
+   {
+    id: "ds1",
+    label: "Session DS 1",
+    period: "Début novembre 2026",
+    date: "2026-11-09",   // was "2026-11-02"
+    icon: "🍂"
+},
     {
         id: "ds2",
         label: "Session DS 2",

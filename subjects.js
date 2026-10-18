@@ -63,7 +63,6 @@ const subjects = [
         "Analyse/TD/Série_01_Analyse.pdf",
         "Analyse/TD/Série 2/Serie_2_ANALYSE_PLSI.pdf",
         "Analyse/TD/Série 3/Serie_03.pdf",
-        "Analyse/TD/Serie 4Serie_04_ANALYSE_PLSI.pdf",
         "Analyse/TD/Serie 5_Trigo&Hyper/Serie_05__Analyse_PLSI avec correction.pdf",
         "Analyse/TD/Serie8_Primitives et integrales/Série_08_Primitives_et_integrales.pdf",
         "Analyse/TD/Serie9_DL.pdf",
@@ -78,7 +77,6 @@ const subjects = [
       "corrections": [
         "Analyse/TD/Série 2/Serie_02_ANALYSE_PLSI_Correction.pdf",
         "Analyse/TD/Série 3/Correction-Serie_03_ANALYSE_PLSI.pdf",
-        "Analyse/TD/Serie 4/correction(maybe).pdf",
         "Analyse/TD/Serie 5_Trigo&Hyper/Correction Class/IMG_20251124_144804_573@-1857900232.jpg",
         "Analyse/TD/Serie 5_Trigo&Hyper/Correction Class/IMG_20251124_144806_297@515566777.jpg",
         "Analyse/DS/DS 2025 + Correction.pdf"
@@ -409,7 +407,9 @@ const subjects = [
     "regime": "RM",
     "resources": {
       "cours": [
-        
+        "Numérisation et codage de données/cours/chapitre 1_numérisation et codage.pdf",
+        "Numérisation et codage de données/cours/chapitre 2_part1.pptx.pdf",
+        "Numérisation et codage de données/cours/chapitre_2_part2.pdf"
       ],
       "td": [
       ],
